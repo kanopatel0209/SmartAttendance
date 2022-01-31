@@ -1,0 +1,145 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel='stylesheet' href="{% static 'institute/css/css_family.css' %}">
+  <link rel="stylesheet" href="{% static 'institute/css/materialdesignicons.min.css' %}">
+  <link rel='stylesheet' href="{% static 'institute/css/vuetify.min.css' %}">
+  <link rel='stylesheet' href="{% static 'institute/css/dashboard.css' %}">
+  <link rel='stylesheet' href="{% static 'institute/css/custom_admin.css' %}">
+  <style>
+    input[type=text] {
+      border: none;
+    }
+  </style>
+  
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+  <script src="{% static 'institute/js/vue.js' %}"></script>
+  <script src="{% static 'institute/js/vuetify.js' %}"></script>
+  <script src="{% static 'institute/js/axios.min.js' %}"></script>
+  <script src="{% static 'institute/js/axioswrapper.js' %}"></script>
+  <script src="{% static 'institute/js/dashboard.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div id="app">
+  <v-app id="inspire">
+    <v-main>
+      <v-container fill-height justify-center>
+        <v-row class="fill-height">
+          <v-col>
+            <v-sheet height="64">
+              <v-toolbar flat>
+                <v-btn outlined color="grey darken-2" @click="setToday">
+                  Today
+                </v-btn>
+
+                <v-spacer></v-spacer>
+
+                <v-btn fab text small color="grey darken-2" @click="prev">
+                  <v-icon small>mdi-chevron-left</v-icon>
+                </v-btn>
+
+                <v-toolbar-title v-if="$refs.calendar" class="mx-4">
+                  [[ $refs.calendar.title ]]
+                </v-toolbar-title>
+
+                <v-btn fab text small color="grey darken-2" @click="next">
+                  <v-icon small>mdi-chevron-right</v-icon>
+                </v-btn>
+
+                <v-spacer></v-spacer>
+
+                <!-- <v-select name="branch" label="Branch" @change="branchChange" :items="{{ branch }}" class="mr-4"
+                  :rules="[v => !!v || 'Branch Name is required']" hide-details hide-selected :offset-y="true" outlined
+                  dense transition="slide-y-transition">
+                </v-select> -->
+
+
+                <div style="width:350px;">
+
+                  <v-autocomplete :items="{{ branch }}" name="branch" label="Branch" @change="branchChange" class="mr-4"
+                    :rules="[v => !!v || 'Branch Name is required']" hide-details hide-selected outlined dense
+                    transition="slide-y-transition">
+                  </v-autocomplete>
+                </div>
+
+                <v-menu bottom right :offset-y="true">
+
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
+                      <span>[[ typeToLabel[type] ]]</span>
+                      <v-icon right>mdi-menu-down</v-icon>
+                    </v-btn>
+                  </template>
+
+                  <v-list>
+                    <v-list-item @click="type = 'month'">
+                      <v-list-item-title>Month</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="type = 'week'">
+                      <v-list-item-title>Week</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="type = 'category'">
+                      <v-list-item-title>Day</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+
+              </v-toolbar>
+            </v-sheet>
+
+
+            <v-sheet class="mt-2" height="80vh">
+
+
+              <v-calendar ref="calendar" v-model="focus" color="primary" :events="events" :event-color="getEventColor"
+                category-show-all :categories="categories" event-overlap-mode="column" event-overlap-threshold="30"
+                :type="type" @click:event="showEvent" @click:more="viewDay" @click:date="viewDay">
+                @change="updateRange">
+              </v-calendar>
+
+
+              <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x>
+                <v-card color="grey lighten-4" min-width="350px" flat>
+
+                  <v-toolbar :color="selectedEvent.color" dark class="mb-3">
+
+                    <v-btn icon>
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon>
+                      <v-icon>mdi-heart</v-icon>
+                    </v-btn>
+                    <v-btn icon>
+                      <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+
+                  </v-toolbar>
+
+                  <v-card-text class="py-0" v-for="details in selectedEvent.details">
+                    <span v-html="details"></span>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-menu>
+            </v-sheet>
+          </v-col>
+        </v-row>
+
+      </v-container>
+    </v-main>
+  </v-app>
+</div>
+
+{% endblock %}

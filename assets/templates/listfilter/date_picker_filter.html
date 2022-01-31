@@ -1,0 +1,29 @@
+{% load i18n %}
+<script type="text/javascript">var go_from_select = function(opt) { window.location = window.location.pathname + opt };</script>
+<h3>{% blocktrans with title as filter_title %} By {{ filter_title }} {% endblocktrans %}</h3>
+<div id="date_picker_filter">
+    <style type="text/css"> 
+        #date_picker_filter a {
+            overflow-x: visible;
+        } 
+        #date_picker_filter .calendar-shortcuts { 
+            display: flex;
+            justify-content: center;
+        }
+
+        .calendar-cancel a{
+            color: black !important;
+        }
+    </style>
+    <ul>
+        <li style="display: flex; align-items: center;">
+            <label class="required" for="input_date_start" style="flex: 1;">From:</label>
+            <input type="text" class="vDateField" id="input_date_start" style="max-width:125px;">
+        </li>
+        <li>
+            <div class="calendarbox module"></div>
+        </li>
+    </ul>
+
+
+</div>

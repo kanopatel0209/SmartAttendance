@@ -1,0 +1,28 @@
+/* .v-card__text{ */
+#app {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+}
+
+.v-calendar-weekly__head > *{
+    padding-bottom: 5px;
+}
+
+/* .v-text-field input */
+.v-select.v-text-field input {
+  background: transparent;
+}
+.v-application .grey.lighten-4 {
+    background-color: #1e1e1e !important;
+}

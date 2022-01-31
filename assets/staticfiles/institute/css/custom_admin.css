@@ -1,0 +1,38 @@
+:root {
+  color-scheme: dark;
+}
+
+/* select#id_semester {
+    min-height: 200px;
+} */
+/* select#id_student,
+select#id_subject,
+select#id_tch_sub,
+select#id_std_sub { */
+select[multiple] {
+    min-height: 300px;
+    /* width: 500px; */
+}
+
+
+
+
+/*::selection {
+    background-color: rgba(61, 90, 254, .15)
+}
+::-webkit-scrollbar {
+    --color--theme--light-one: #eceff1;
+    --color--theme--light-one: #161e26;
+    width: 12px;
+    background-color: var(--color--theme--light-one)
+}
+::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background-color: transparent
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #2b333b;
+    border: 2px solid var(--color--theme--light-one)
+}
+*/
